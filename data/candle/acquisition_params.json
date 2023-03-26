@@ -1,0 +1,9 @@
+{
+    "cam_width": 1920,
+    "cam_height:": 1080,
+    "proj_width": 1280,
+    "proj_height": 1024,
+    "patterns_nb": 74,
+    "pattern_black_ind": 0,
+    "pattern_white_ind": 1
+}
