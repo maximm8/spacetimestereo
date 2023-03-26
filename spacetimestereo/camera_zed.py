@@ -1,17 +1,7 @@
-# import cv2
-# import pyrealsense2 as rs
-# import spslib.utils as utils
-# import json
-# import os
-# import matplotlib.pyplot as plt
-# import ogl_viewer.viewer as gl
-# import sys
-# import open3d as o3d
 import cv2
 import numpy as np
-
 import pyzed.sl as zedsl
-# from camera import camera, image_type
+
 from spacetimestereo.camera import *
 
 class camera_zed(camera):
@@ -66,11 +56,9 @@ class camera_zed(camera):
         if (err != zedsl.ERROR_CODE.SUCCESS) :
             return -1
 
-        # Set exposure to 50% of camera framerate
-        self.zed.set_camera_settings(zedsl.VIDEO_SETTINGS.EXPOSURE, exposure)
-        # Set white balance to 4600K
+        # Set exposure  and white balance
+        self.zed.set_camera_settings(zedsl.VIDEO_SETTINGS.EXPOSURE, exposure)        
         self.zed.set_camera_settings(zedsl.VIDEO_SETTINGS.WHITEBALANCE_AUTO, 0)
-        # zed.set_camera_settings(zedsl.VIDEO_SETTINGS.WHITE_BALANCE, 4600)
 
         self.image1 = zedsl.Mat()
         self.image2 = zedsl.Mat()
@@ -114,12 +102,6 @@ class camera_zed(camera):
 
     def get_camera_params(self):
         cam_params = {}
-        # focal_left_x = calibration_params.left_cam.fx
-        # k1 = calibration_params.left_cam.disto[0]
-        # tz = calibration_params.T[0]
-        # h_fov = calibration_params.left_cam.h_fov
-
-        # cam_params = {}
         calibration_params = self.zed.get_camera_information().camera_configuration.calibration_parameters
         intrinsics = [calibration_params.left_cam, calibration_params.right_cam]
 

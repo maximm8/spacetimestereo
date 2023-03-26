@@ -61,8 +61,6 @@ def load_images(data_folder):
 
     return imgs1, imgs2
 
-
-
 def disparity_map_to_color(disparity_map):
     dd = (disparity_map-disparity_map.min())/(disparity_map.max()-disparity_map.min())
     disparity_map_color = cv2.applyColorMap((dd*255).astype(np.uint8), cv2.COLORMAP_JET)

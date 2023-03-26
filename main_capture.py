@@ -118,7 +118,7 @@ if __name__ == '__main__':
         cv2.imwrite(f'{data_folder}/img2_{i:02d}.png', imgs2[i])
         cv2.imwrite(f'{data_folder}/pattern_{i:02d}.png', patterns[i])
         
-        #save point cloud and dispary map captured by camera
+        #save point cloud and disparity map captured by camera
         if i<=acq_params["pattern_white_ind"]:
             np.save(f'{data_folder}/disparity_{i:02d}.npy', disps[i])
             np.save(f'{data_folder}/pc_{i:02d}.npy', pcs[i])
