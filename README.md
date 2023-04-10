@@ -30,6 +30,22 @@ estimated disparity map
 point cloud  
 ![](docs/lego_3d_anim.png)
 
+# Usage
+Capture images using Stereolabs ZED camera and a projector
+```
+python main_capture.py
+```
+
+Estimate object 3D geometry using spacetime stereo technique
+```
+python main_reconstruct.py
+```
+
+Show results
+```
+python main_show_model.py
+```
+
 
 # References 
 - Spacetime Stereo: A Unifying Framework for Depth from Triangulation.  
