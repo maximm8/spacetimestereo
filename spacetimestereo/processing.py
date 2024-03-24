@@ -46,12 +46,17 @@ def disparity_to_point_cloud(disparity_map, point_colors, Q):
     y = point_cloud[:,:,1].reshape(-1,1)
     z = point_cloud[:,:,2].reshape(-1,1)
     c = point_colors.reshape(-1,3)
-    ind = np.where(z<2)[0]
-    xyz = np.concatenate((x[ind],y[ind],z[ind]), axis=1)
+    # ind = np.where(z<500)[0]
+    # xyz = np.concatenate((x[ind],y[ind],z[ind]), axis=1)
+    xyz = np.concatenate((x,y,z), axis=1)
     rgb = np.zeros_like(xyz)
-    rgb[:,0] = c[ind,2]
-    rgb[:,1] = c[ind,1]
-    rgb[:,2] = c[ind,0]
+    # rgb[:,0] = c[ind,2]
+    # rgb[:,1] = c[ind,1]
+    # rgb[:,2] = c[ind,0]
+
+    rgb[:,0] = c[:,2]
+    rgb[:,1] = c[:,1]
+    rgb[:,2] = c[:,0]
 
     return xyz, rgb
 
@@ -85,7 +90,7 @@ def point_cloud_zed_to_point_cloud(point_cloud_zed):
     b = c2[:,:,2].reshape(-1, 1)
     rgb = np.concatenate((r,g,b), axis=1)
 
-def creat_point_cloud_open3d(xyz, c):
+def create_point_cloud_open3d(xyz, c):
     pcd = o3d.geometry.PointCloud()
     pcd.points = o3d.utility.Vector3dVector(xyz)
     pcd.colors = o3d.utility.Vector3dVector(c.astype(np.float32)/255)

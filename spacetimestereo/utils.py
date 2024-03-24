@@ -2,7 +2,7 @@ import os
 import cv2
 import json
 import numpy as np
-from screeninfo import get_monitors
+# from screeninfo import get_monitors
 import tqdm
 import glob
 
@@ -48,16 +48,21 @@ def load_params_from_json(filename):
 
     return p
 
-def load_images(data_folder):
+def load_images(data_folder, patterns_nb=None):
     imgs1 = []
     imgs2 = []
     files1 = glob.glob(f'{data_folder}/img1_*.png')
     files2 = glob.glob(f'{data_folder}/img2_*.png')
 
-    for f1, f2 in zip(files1, files2):
+    # print(patterns_nb, len(files1))
+    if patterns_nb == None: patterns_nb = len(files1)
+
+    # for f1, f2 in zip(files1, files2):
+    for i in range(0, patterns_nb, 1):
+        f1, f2 = files1[i], files2[i]
         if os.path.exists(f1) and os.path.exists(f2):
-            imgs1.append(cv2.imread(f1))
-            imgs2.append(cv2.imread(f2))
+            imgs1.append(cv2.imread(f1))#.astype(np.float16))
+            imgs2.append(cv2.imread(f2))#.astype(np.float16))
 
     return imgs1, imgs2
 
@@ -66,3 +71,7 @@ def disparity_map_to_color(disparity_map):
     disparity_map_color = cv2.applyColorMap((dd*255).astype(np.uint8), cv2.COLORMAP_JET)
 
     return disparity_map_color
+
+def remove_points(xyz, rgb, z_lim):
+    ind = np.where((xyz[:,2]>z_lim[0]) & (xyz[:,2]<z_lim[1]))[0]
+    return xyz[ind,:], rgb[ind,:]
